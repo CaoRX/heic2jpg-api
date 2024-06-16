@@ -28,6 +28,4 @@ jobs:
     - name: Debug Event
       run: |
         echo "Event: ${{ toJson(github.event) }}"
-        echo "Comment: ${{ github.event.comment.body }}"
-        echo "User: ${{ github.event.comment.user.login }}"
         echo "Owner: ${{ github.repository_owner }}"
