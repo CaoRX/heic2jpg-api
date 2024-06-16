@@ -7,10 +7,7 @@ on:
 
 jobs:
   deploy:
-    if: >
-      github.event.issue.pull_request == null &&
-      contains(github.event.comment.body, '/deploy') &&
-      github.event.comment.user.login == github.repository_owner
+    if: contains(github.event.comment.body, '/deploy') && github.event.comment.user.login == github.repository_owner
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
