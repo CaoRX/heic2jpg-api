@@ -1,9 +1,10 @@
 name: Deploy with Pulumi
 
-# trigger on comment "/deploy" by the author of the repository
+# trigger on push to main branch
 on:
-  issue_comment:
-    types: [created]
+  push:
+    branches:
+      - main
 
 jobs:
   deploy:
