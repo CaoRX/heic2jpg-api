@@ -1,0 +1,27 @@
+name: Deploy with Pulumi
+
+# trigger on comment "/deploy" by the author of the PR
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  deploy:
+    if: >
+      github.event.issue.pull_request != null &&
+      contains(github.event.comment.body, '/deploy') &&
+      github.event.comment.user.login == github.repository_owner
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '22'
+
+    - name: Install Pulumi CLI
+      run: |
+        curl -fsSL https://get.pulumi.com | sh
+        echo "$HOME/.pulumi/bin" >> $GITHUB_PATH
