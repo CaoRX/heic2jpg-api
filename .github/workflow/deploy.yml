@@ -25,3 +25,10 @@ jobs:
       run: |
         curl -fsSL https://get.pulumi.com | sh
         echo "$HOME/.pulumi/bin" >> $GITHUB_PATH
+
+    - name: Debug Event
+      run: |
+        echo "Event: ${{ toJson(github.event) }}"
+        echo "Comment: ${{ github.event.comment.body }}"
+        echo "User: ${{ github.event.comment.user.login }}"
+        echo "Owner: ${{ github.repository_owner }}"
