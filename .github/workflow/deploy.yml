@@ -1,6 +1,6 @@
 name: Deploy with Pulumi
 
-# trigger on comment "/deploy" by the author of the PR
+# trigger on comment "/deploy" by the author of the repository
 on:
   issue_comment:
     types: [created]
@@ -8,7 +8,7 @@ on:
 jobs:
   deploy:
     if: >
-      github.event.issue.pull_request != null &&
+      github.event.issue.pull_request == null &&
       contains(github.event.comment.body, '/deploy') &&
       github.event.comment.user.login == github.repository_owner
     runs-on: ubuntu-latest
