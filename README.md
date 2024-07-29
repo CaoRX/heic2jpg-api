@@ -15,17 +15,22 @@ Then you can create your infrastructure by following commands:
 npm install
 pulumi up # You need to choose a name for your stack
 ```
-and if everything goes well, an endpoint should be shown. You can then test your HTTP API endpoint by scripts like following:
+and if everything goes well, an endpoint should be shown. Also one lambda function will be shown as the tokenGenerator: you can find a tokenGenerator-xxx function in your lambda function. Each time you run the function, one API token will be added to the token table with credits.
+
+You can then test your HTTP API endpoint by scripts like following:
 ```javascript
 const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
 
-const fileBuffer = fs.readFileSync('sample.heic');
+const fileBuffer = fs.readFileSync('sample1.heic');
 const base64Image = fileBuffer.toString('base64');
+const token = "<YOUR-API-TOKEN>";
 
-axios.post("<YOUR-ENDPOINT>", {
-  image: base64Image })
+axios.post("<YOUR-API-ENDPOINT>", {
+  image: base64Image,
+  token: token,
+})
 .then(response => {
   const imageBuffer = Buffer.from(response.data, 'base64');
   fs.writeFileSync('output.jpeg', imageBuffer);
